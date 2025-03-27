@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 新增 Lightbox 依赖 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+  <title>Vocabulary Cards</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-[1024px] bg-gray-50">
+  <!-- 原有卡片结构 -->
+  <!-- 修改所有图片标签，示例： -->
+  <img 
+    src="https://ai-public.mastergo.com/ai/img_res/d5e28ca99ea7eb33e85beec505216d08.jpg"
+    class="w-full h-full object-cover" 
+    alt="Bear"
+    data-lightbox="animal-images"
+    data-title="熊"
+  >
+  
+  <!-- 新增分享提示 -->
+  <div class="text-center mt-8 text-sm text-gray-500">
+    <p>提示：长按二维码保存并分享到微信</p>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=YOUR_GITHUB_PAGES_URL" 
+         class="mx-auto w-32 h-32 mt-4">
+  </div>
+
+  <!-- 脚本区域 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+  <script>
+    // 初始化 Lightbox
+    lightbox.option({
+      'resizeDuration': 200,
+      'wrapAround': true
+    });
+
+    // 修改后的音频播放逻辑
+    document.querySelectorAll('.fa-volume-up').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const word = this.parentElement.previousElementSibling.textContent;
+        const audio = new Audio(`https://translate.google.com/translate_tts?ie=UTF-8&tl=en&client=tw-ob&q=${word}`);
+        audio.play().catch(() => {
+          alert('请先点击页面任意位置，再点播放按钮！');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
